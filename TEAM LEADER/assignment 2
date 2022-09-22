@@ -21,4 +21,4 @@ def delete(id):
     return "Data deleted"
 
 if name == '__main__':
-    port = os.environ.get('FLASK_PORT') or 8080 
+    port = os.environ.get('FLASK_PORT') or 8080
