@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+    <h2>Update Profile</h2>
+        <div class="content-section">
+            <form method="POST" action="">
+                {{ form1.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4"></legend>
+                    <div class="form-group">
+                        {{ form1.text.label(class="form-control-label") }}
+                        {% if form1.text.errors %}
+                            {{ form1.text(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.text.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form1.text(class="form-control form-control-lg", value=intrested_location) }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ form1.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+        <div class="content-section">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4"></legend>
+                    <div class="form-group">
+                        {{ form.location.label(class="form-control-label") }}
+                        {% if form.location.errors %}
+                            {{ form.location(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.location.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.location(class="form-control form-control-lg", value=intrested_location) }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.skills.label(class="form-control-label") }}
+                        {% if form.skills.errors %}
+                            {{ form.skills(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.skills.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.skills(class="form-control form-control-lg", value=skills_to_update) }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.company.label(class="form-control-label") }}
+                        {% if form.company.errors %}
+                            {{ form.company(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.company.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.company(class="form-control form-control-lg", value=company_to_update) }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+
+    <h2>Jobs</h2>
+        {% if share_post %}
+            {% for post in share_post %}
+                <div class="w3-row-padding w3-center w3-margin-top">
+                    <div class="w3-third">
+                      <div class="w3-card w3-container" style="min-height:460px">
+                      <h3>Job Details</h3><br>
+                      <p>{{post[1]}}</p>
+                      <p>At {{post[-2]}}</p>
+                      <p>Company: {{post[0]}}</p>
+                      <p>Skills Required: {{post[2]}}</p><br>
+                      </div>
+                    </div>
+
+                    <div class="w3-third">
+                      <div class="w3-card w3-container" style="min-height:460px">
+                          <a class="nav-item nav-link" href="{{ url_for('intrested_job', post_id=post[-1]) }}">Apply</a>
+                      </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        {% else %}
+            <h3>No Job Post are Registered</h3>
+        {% endif %}
+    </div>
+
+<button class="open-button" onclick="openForm()">Chat</button>
+
+<div class="chat-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <h1>IBM Assistance V2</h1>
+
+    <label for="msg"><b>Enter your query</b></label>
+    <textarea placeholder="Type message.." name="msg" required></textarea>
+
+    <button type="submit" class="btn">Send</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+
+{% endblock content %}

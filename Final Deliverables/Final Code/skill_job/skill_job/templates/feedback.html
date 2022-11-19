@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+        <h2>Tourist Spots Feedback - {{location_name}}</h2>
+                <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Add Location</legend>
+                <div class="form-group">
+                    {{ form.location_name.label(class="form-control-label") }}
+                    {{ form.location_name(class="form-control form-control-lg", readonly="readonly", value=location_name) }}
+                </div>
+                <div class="form-group">
+                    {{ form.location_feedback.label(class="form-control-label") }}
+                    {% if form.location_feedback.errors %}
+                        {{ form.location_feedback(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.location_feedback.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.location_feedback(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.demand.label(class="form-control-label") }}
+                    {% if form.demand.errors %}
+                        {{ form.demand(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.demand.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.demand(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    <div class="content-section">
+        <h2>Feedbacks</h2>
+        {% if feedbacks %}
+            {% for feedback in feedbacks%}
+                <div class="content-section">
+                    <p>{{feedback.location_feedback}}</p>
+                </div>
+            {% endfor%}
+        {% endif %}
+    </div>
+    </div>
+    <div class="content-section">
+        {% if map_name %}
+            <h2>Passengers Demands</h2>
+            <img src="/static/{{map_name}}" alt="">
+        {% endif %}
+    </div>
+{% endblock content %}

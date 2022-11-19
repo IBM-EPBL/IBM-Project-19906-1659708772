@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+    <h2>Update Profile</h2>
+        <div class="content-section">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4"></legend>
+                    <div class="form-group">
+                        {{ form.job_title.label(class="form-control-label") }}
+                        {% if form.job_title.errors %}
+                            {{ form.job_title(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.job_title.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.job_title(class="form-control form-control-lg", value=skills_to_update) }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.skills_needed.label(class="form-control-label") }}
+                        {% if form.skills_needed.errors %}
+                            {{ form.skills_needed(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.skills_needed.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.skills_needed(class="form-control form-control-lg", value=skills_to_update) }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        {{ form.location.label(class="form-control-label") }}
+                        {% if form.location.errors %}
+                            {{ form.location(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.location.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.location(class="form-control form-control-lg", value=skills_to_update) }}
+                        {% endif %}
+                    </div>
+                </fieldset>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-outline-info") }}
+                </div>
+            </form>
+        </div>
+
+    <h2>Posts</h2>
+        {% if share_post %}
+            {% for post in share_post %}
+                <div class="w3-row-padding w3-center w3-margin-top">
+                    <div class="w3-third">
+                      <div class="w3-card w3-container" style="min-height:460px">
+                      <h3>Job Details</h3><br>
+                      <p>{{post[1]}}</p>
+                      <p>At {{post[3]}}</p>
+                      <p>Skill Sets: {{post[2]}}</p>
+                      </div>
+                    </div>
+
+                    <div class="w3-third">
+                      <div class="w3-card w3-container" style="min-height:460px">
+                      <h3>Job Seekers</h3><br>
+                        {%for seeker in post[-1] %}
+                            <p>{{seeker[0]}}, {{seeker[1]}}
+                            <a class="nav-item nav-link" href="">Select!</a></p><hr>
+                        {% endfor %}
+                      </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>No Job Post are Registered</h3>
+        {% endif %}
+    </div>
+{% endblock content %}
